@@ -1,0 +1,26 @@
+.chatIntro{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-bottom: 6px solid #73272a;
+}
+
+.chatIntro h1{
+    font-size: 32px;
+    color: white;
+    font-weight: normal;
+    margin-top: 30px;
+}
+
+.chatIntro h1{
+    font-size: 14px;
+    color: grey;
+    font-weight: normal;
+    margin-top: 20px;
+    line-height: 200px;
+    text-align: center;
+}
+

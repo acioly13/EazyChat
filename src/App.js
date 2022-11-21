@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import './App.css';
-import ChatListitem from "./components/ChatListitem";
+
+import ChatList from "./components/ChatList";
+import ChatIntro from './components/ChatIntro'
+import ChatWindow from './components/ChatWindow'
+
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -8,11 +12,12 @@ import SearchIcon from '@material-ui/icons/Search';
 
 export default () => {
     const [chatList, setChatList] = useState([
-        {},
-        {},
-        {},
-        {},
+        {chatId: 1, title:'Usuario 1', image:'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50'},
+        {chatId: 2, title:'Usuario 2', image:'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50'},
+        {chatId: 3, title:'Usuario 3', image:'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50'},
+        {chatId: 4, title:'Usuario 4', image:'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50'}
     ]);
+    const [activeChat, setActiveChat] = useState({});
     return (
         <div className="app-window">
             <div className="sidebar">
@@ -38,14 +43,19 @@ export default () => {
                 </div>
                 <div className="chatlist">
                     {chatList.map((item, key) => (
-                        <ChatListitem
+                        <ChatList
                             key={key}
+                            data={item}
+                            active={activeChat.chatId === chatList[key].chatId}
+                            onClick={()=>setActiveChat(chatList[key])}
                         />
                     ))}
                 </div>
             </div>
             <div className="contentarea">
-                ...
+                {activeChat.chatId !== undefined && <ChatWindow/>}
+                {activeChat.chatId !== undefined && <ChatIntro/>}
+                <ChatIntro/>
             </div>
         </div>
     );
