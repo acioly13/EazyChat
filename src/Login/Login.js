@@ -1,20 +1,21 @@
 import React from 'react';
 import './Login.css';
+import Api from '../Api';
 
-export default () => {
-    const handleLogin = async () => {
-        let result = await Api.emailLogin();
+export default ({ onReceive }) => {
+    const handleFacebookLogin = async () => {
+        let result = await Api.fbPopup();
+
         if (result) {
-            window.location.href = '/';
-        }
-        else {
-            alert("Erro!");
+            onReceive(result.user);
+        } else {
+            alert('Erro!');
         }
     }
 
     return (
         <div className='login'>
-            <button onClick={handleLogin}>Login com o Email e Senha</button>
+            <button onClick={handleFacebookLogin}>Logar com Facebook</button>
         </div>
     );
 }

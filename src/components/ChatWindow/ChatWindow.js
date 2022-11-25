@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import EmojiPicker from "emoji-picker-react";
 import './ChatWindow.css';
+import Api from "../../Api";
 
 import MessageItem from "../MessageItem/MessageItem";
 
@@ -12,7 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 import MicIcon from '@material-ui/icons/Mic';
 
-export default ({ user }) => {
+export default ({ user, data }) => {
 
     const body = useRef();
 
@@ -25,71 +26,13 @@ export default ({ user }) => {
     const [emojiOpen, setEmojiOpen] = useState(false);
     const [text, setText] = useState('');
     const [listening, setListening] = useState(false);
-    const [list, setList] = useState([
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-        { author: 123, body: 'Olá, mundo' },
-        { author: 123, body: 'Olá, aaaaaaaaaa' },
-        { author: 1234, body: 'Olá' },
-    ]);
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        setList([]);
+        let unsub = Api.onChatContent(data.chatId, setList, setList);
+        return unsub;
+    }, [data.chatId]);
 
     useEffect(() => {
         if (body.current.scrollHeight > body.current.offsetHeight) {
@@ -121,16 +64,26 @@ export default ({ user }) => {
             recognition.start();
         }
     }
-    const handleSendClick = () => {
 
+    const handleInputKeyUp = (e) => {
+        if (e.keyCode === 13) {
+            handleSendClick();
+        }
+    };
+    const handleSendClick = () => {
+        if (text !== '') {
+            Api.sendMessage(data, user.id, 'text', text, text);
+            setText('');
+            setEmojiOpen(false);
+        }
     }
     return (
         <div className="chatWindow">
             <div className="chatWindow-header">
 
                 <div className="chatWindow-header-info">
-                    <img className="chatWindow-avatar" src='https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50'></img>
-                    <div className="chatWindow-name">Emanuel</div>
+                    <img className="chatWindow-avatar" src={data.image}></img>
+                    <div className="chatWindow-name">{data.title}</div>
                 </div>
 
                 <div className="chatWindow-header-buttons">
@@ -191,6 +144,7 @@ export default ({ user }) => {
                         placeholder="Digite uma mensagem"
                         value={text}
                         onChange={e => setText(e.target.value)}
+                        onKeyUp={handleInputKeyUp}
                     />
                 </div>
                 <div className="chatWindow-pos">

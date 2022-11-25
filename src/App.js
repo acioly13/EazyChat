@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './App.css';
+import Api from './Api';
 
 import ChatList from "./components/ChatList/ChatList";
 import ChatIntro from './components/ChatIntro/ChatIntro';
 import ChatWindow from './components/ChatWindow/ChatWindow';
 import NewChat from './components/NewChat/NewChat';
+import Login from './Login/Login';
 
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -12,24 +14,45 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 
 export default () => {
-    const [chatList, setChatList] = useState([
-        { chatId: 1, title: 'Usuario 1', image: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50' },
-        { chatId: 2, title: 'Usuario 2', image: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50' },
-        { chatId: 3, title: 'Usuario 3', image: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50' },
-        { chatId: 4, title: 'Usuario 4', image: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50' }
-    ]);
+    const [chatList, setChatList] = useState([]);
     const [activeChat, setActiveChat] = useState({});
     const [user, setUser] = useState({
-        id: 1234,
-        avatar: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
-        name: 'João Acioly',
+        id: 'GQM7kb39D1OML44yXw7S',
+        avatar: 'https://www.megashopsul.com.br/3352-large_default/mascara-tartarugas-ninjas-rafael-festa-carnaval-halloween.jpg',
+        name: 'Rafael'
+    }
 
-    });
+    );
 
     const [showNewChat, setShowNewChat] = useState(false);
 
+    useEffect(() => {
+
+        if (user !== null) {
+            let unsub = Api.onChatList(user.id, setChatList);
+            return unsub;
+        }
+    }, [user]);
+
     const handleNewChat = () => {
         setShowNewChat(true);
+    }
+
+
+
+    const handleLoginData = async (u) => {
+        let newUser = {
+            id: u.uid,
+            name: u.displayName,
+            avatar: u.photoURL
+
+        };
+        await Api.addUser(newUser);
+        setUser(newUser);
+    };
+
+    if (user === null) {
+        return (<Login onReceive={handleLoginData} />);
     }
     return (
         <div className="app-window">
@@ -75,6 +98,7 @@ export default () => {
                 {activeChat.chatId !== undefined &&
                     <ChatWindow
                         user={user}
+                        data={activeChat}
                     />}
                 {activeChat.chatId === undefined && <ChatIntro />}
             </div>
