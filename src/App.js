@@ -16,13 +16,7 @@ import SearchIcon from '@material-ui/icons/Search';
 export default () => {
     const [chatList, setChatList] = useState([]);
     const [activeChat, setActiveChat] = useState({});
-    const [user, setUser] = useState({
-        id: 'GQM7kb39D1OML44yXw7S',
-        avatar: 'https://www.megashopsul.com.br/3352-large_default/mascara-tartarugas-ninjas-rafael-festa-carnaval-halloween.jpg',
-        name: 'Rafael'
-    }
-
-    );
+    const [user, setUser] = useState(null);
 
     const [showNewChat, setShowNewChat] = useState(false);
 
