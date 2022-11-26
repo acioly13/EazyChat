@@ -58,7 +58,7 @@ export default () => {
                     setShow={setShowNewChat}
                 />
                 <header>
-                    <img className="header-avatar" src={user.avatar} alt="avatar" />
+                    <img className="header-avatar" src={'https://terrademordor.files.wordpress.com/2013/03/cosplayquinta-tartarugas-04.jpg'} alt="avatar" />
                     <div className="header-buttons">
                         <div className="header-btn">
                             <DonutLargeIcon style={{ color: '#919191' }} />

@@ -10,16 +10,16 @@
 
 .chatIntro h1{
     font-size: 32px;
-    color: white;
+    color: black;
     font-weight: normal;
     margin-top: 30px;
 }
 
-.chatIntro h1{
-    font-size: 14px;
-    color: grey;
+.chatIntro h2{
+    font-size: 25px;
+    color: rgb(85, 85, 85);
     font-weight: normal;
-    margin-top: 20px;
+    margin-top: 5px;
     line-height: 200px;
     text-align: center;
 }

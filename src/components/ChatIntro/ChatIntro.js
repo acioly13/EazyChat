@@ -4,9 +4,8 @@ import './ChatIntro.css';
 export default() => {
     return(
         <div className="chatIntro">
-            <img src='' alt=''/>
-            <h1> teste de linha de comentario</h1>
-            <h2> teste de linha de comentario maior</h2>
+            <h2>EazyChat</h2>
+            <h1>Universidade de Vassouras</h1>
         </div>
     );
 }

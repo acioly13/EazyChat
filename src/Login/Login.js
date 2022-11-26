@@ -15,6 +15,7 @@ export default ({ onReceive }) => {
 
     return (
         <div className='login'>
+            <img className="login-univ" src={'http://images.educamaisbrasil.com.br/content/superior/instituicao/logo/g/universidade-de-vassouras.png'} alt="avatar" />
             <button onClick={handleFacebookLogin}>Logar com Facebook</button>
         </div>
     );
