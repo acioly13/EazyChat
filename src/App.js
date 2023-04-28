@@ -58,7 +58,7 @@ export default () => {
                     setShow={setShowNewChat}
                 />
                 <header>
-                    <img className="header-avatar" src={'https://terrademordor.files.wordpress.com/2013/03/cosplayquinta-tartarugas-04.jpg'} alt="avatar" />
+                    <img className="header-avatar" src={'https://static3.tcdn.com.br/img/img_prod/460977/boneco_raphael_tartarugas_ninjas_s_h_figuarts_bandai_18375_1_20201211172802.jpg'} alt="avatar" />
                     <div className="header-buttons">
                         <div className="header-btn">
                             <DonutLargeIcon style={{ color: '#919191' }} />

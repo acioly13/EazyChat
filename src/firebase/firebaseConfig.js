@@ -1,8 +1,9 @@
 export default {
-    apiKey: "AIzaSyCnGmeUNJIbyh6KYHGEpTwV2hgRotuPa5A",
-    authDomain: "eazychat-58478.firebaseapp.com",
-    projectId: "eazychat-58478",
-    storageBucket: "eazychat-58478.appspot.com",
-    messagingSenderId: "1024871169061",
-    appId: "1:1024871169061:web:0f1b570ec0b05756a213cc"
+  apiKey: "AIzaSyD88RIQhu68BdxJ6f9OCyu7vtXuVf7bg2Q",
+  authDomain: "eazy-chat-b5c7a.firebaseapp.com",
+  projectId: "eazy-chat-b5c7a",
+  storageBucket: "eazy-chat-b5c7a.appspot.com",
+  messagingSenderId: "71367713415",
+  appId: "1:71367713415:web:e9fcc142ad1656474d4e22",
+  measurementId: "G-HPP65PSE7Q"
   };
